@@ -4,17 +4,26 @@
 
 //============================ Function(Start) ============================
 #pragma region
+
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
+}
+
+
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
+    glViewport(0, 0, width, height);
 }
 #pragma endregion
 //============================ Function(End) ============================
 
 int main()
 {
-//============================ 初始化(start) ============================
+    //============================ 初始化(start) ============================
 #pragma region
     //实例化GLFW窗口
     glfwInit();
@@ -37,23 +46,67 @@ int main()
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);//自适应窗口大小
 #pragma endregion
-//============================ 初始化(end) ============================
+    //============================ 初始化(end) ============================
 
 
-//============================ 顶点数据(start) ============================
+    //============================ 顶点数据(start) ============================
 #pragma region
+    //glEnable(GL_CULL_FACE);
+    //glCullFace(GL_FRONT);//顶点顺时针显示反面GL_BACK，逆时针显示正面GL_FRONT
+
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//线框模式
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);//默认模式：填充颜色
 //1.定义顶点数据
+    //1.1绘制一个三角形
+    /*
     float vertices[] = {
         -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-         0.0f,  0.5f, 0.0f
-            };
-//2.定义VAO
+            0.5f, -0.5f, 0.0f,
+            0.0f,  0.5f, 0.0f
+     };
+    */
+
+    //1.2 绘制两个三角形
+    /*
+    float vertices[] = {
+        // 第一个三角形
+        0.5f, 0.5f, 0.0f,   // 右上角
+        0.5f, -0.5f, 0.0f,  // 右下角
+        -0.5f, 0.5f, 0.0f,  // 左上角
+        // 第二个三角形
+        0.5f, -0.5f, 0.0f,  // 右下角
+        -0.5f, -0.5f, 0.0f, // 左下角
+        -0.5f, 0.5f, 0.0f   // 左上角
+     };
+    */
+
+    //1.3 使用EBO绘制两个三角形
+    float vertices[] = {
+    0.5f, 0.5f, 0.0f,   // 右上角
+    0.5f, -0.5f, 0.0f,  // 右下角
+    -0.5f, -0.5f, 0.0f, // 左下角
+    -0.5f, 0.5f, 0.0f   // 左上角
+    };
+
+    unsigned int indices[] = {
+        // 注意索引从0开始! 
+        // 此例的索引(0,1,2,3)就是顶点数组vertices的下标，
+        // 这样可以由下标代表顶点组合成矩形
+
+        0, 1, 3, // 第一个三角形
+        1, 2, 3  // 第二个三角形
+    };
+
+    //2.定义VAO
     unsigned int VAO;
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);//绑定VAO
 //3.定义VBO
+    /*
+
+    */
     unsigned int VBO;
     glGenBuffers(1, &VBO);//glGenBuffers和缓冲ID生成一个VBO对象
 
@@ -70,7 +123,13 @@ int main()
     //                                          GL_STREAM_DRAW（数据每次绘制时都会改变）。
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    //创建指针
+    //4.定义EBO
+    unsigned int EBO;
+    glGenBuffers(1, &EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    //5.创建指针
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);//启用顶点属性
 
@@ -82,12 +141,12 @@ int main()
     glBindVertexArray(0);
     */
 #pragma endregion
-//============================ 顶点数据(end) ============================
+    //============================ 顶点数据(end) ============================
 
 
 
 
-//============================ shader(start) ============================
+    //============================ shader(start) ============================
 #pragma region
 //1.VS
     const char* vertexShaderSource = "#version 330 core\n"
@@ -121,7 +180,7 @@ int main()
     }
     */
 
-//2.FS
+    //2.FS
     const char* fragmentShaderSource = "#version 330 core\n"
         "out vec4 FragColor;\n"
         "void main()\n"
@@ -133,7 +192,7 @@ int main()
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(fragmentShader);
 
-//3.Link VS 和 FS
+    //3.Link VS 和 FS
     unsigned int shaderProgram;
     //glCreateProgram函数创建一个程序，并返回新创建程序对象的ID引用。
     shaderProgram = glCreateProgram();
@@ -150,15 +209,15 @@ int main()
     }
     */
 
-//4. 删除Shader
-    //着色器对象链接到程序对象以后，记得删除着色器对象,不再需要
+    //4. 删除Shader
+        //着色器对象链接到程序对象以后，记得删除着色器对象,不再需要
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 #pragma endregion
-//============================ shader(end) ============================
+    //============================ shader(end) ============================
 
 
-//============================ 渲染循环(start) ============================
+    //============================ 渲染循环(start) ============================
 #pragma region
     while (!glfwWindowShouldClose(window))
     {
@@ -173,15 +232,23 @@ int main()
         //在glUseProgram函数调用之后，每个着色器调用和渲染调用都会使用这个程序对象（也就是之前写的着色器)
         glUseProgram(shaderProgram);
         glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-
+        //绘制一个三角形
+        //glDrawArrays(GL_TRIANGLES, 0, 3);
+        //绘制两个三角形：使用VBO
+        //glDrawArrays(GL_TRIANGLES, 0, 6);
+        //绘制两个三角形：使用EBO，参数1：绘制的模式，参数2：顶点数，参数3：索引的类型，参数4：偏移量
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        //glBindVertexArray(0);//不需要一直解绑
         //交换前后帧
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 #pragma endregion
-//============================ 渲染循环(end) ============================
-
+    //============================ 渲染循环(end) ============================
+    glDeleteVertexArrays(1, &VAO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
+    glDeleteProgram(shaderProgram);
     glfwTerminate();
     return 0;
 }
