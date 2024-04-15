@@ -39,7 +39,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 #pragma endregion
 //============================ Function(End) ============================
 
-
 int main()
 {
     //============================ ≥ı ºªØ(start) ============================
