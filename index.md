@@ -6,3 +6,6 @@
 6. OpenGL03_2:   Shaders: add "setBool setInt setFloat" in shader.h: Uniform value setting function
 7. OpenGL04_1:   Textures: simple demo
 8. OpenGL04_2:   Textures: Vertex, Texture, Model, Layout, GlInit abstraction
+9. OpenGL05_1:   Transformations: glm transformation test
+10. OpenGL06_1:   Coordinate Systems: 3D world: MVP matrix simple demo
+11. OpenGL06_1:   Coordinate Systems: 3D world: depth test and multi-object 
