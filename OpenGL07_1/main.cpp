@@ -22,9 +22,12 @@ float mixFactor = 0.2;
 glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
+
+bool firstMouse = true;
 float lastX = (float)screenWidth / 2, lastY = (float)screenHeight / 2;
 float yaw = -90.0f, pitch = 0.0f;//yaw是和x轴的夹角，设置为-90.0，初始的时候我们的相机对着模型
 float fov = 45.0f;
+
 // 设置全局变量记录delta time
 float deltaTime = 0.0f; // 当前帧与上一帧的时间差
 float lastFrame = 0.0f; // 上一帧的时间
@@ -73,6 +76,12 @@ int main()
     glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {glViewport(0, 0, width, height); });//自适应窗口大小
     glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
         {
+            if (firstMouse)
+            {
+                lastX = xpos;
+                lastY = ypos;
+                firstMouse = false;
+            }
             float xoffset = xpos - lastX;
             float yoffset = lastY - ypos; // glfw的x轴是向右的，y轴是向下的，原点在左上角
             lastX = xpos;
