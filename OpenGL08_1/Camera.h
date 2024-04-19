@@ -50,7 +50,7 @@ public:
             m_Pos -= m_Speed * m_Right;
         if (dir == CameraDir::Right)
             m_Pos += m_Speed * m_Right;
-        m_Pos.y = 0;
+        //m_Pos.y = 0;
     }
     void MouseScroolEvent(double yoffset)
     {
