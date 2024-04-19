@@ -9,3 +9,6 @@
 9. OpenGL05_1:   Transformations: glm transformation test
 10. OpenGL06_1:   Coordinate Systems: 3D world: MVP matrix simple demo
 11. OpenGL06_1:   Coordinate Systems: 3D world: depth test and multi-object 
+12. OpenGL07_1:   Camera: simple demo
+13. OpenGL07_2:   Camera: camera class abstraction
+14. OpenGL08_1:   Color: basic light and object demo

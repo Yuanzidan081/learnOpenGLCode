@@ -131,7 +131,6 @@ int main()
 
     //============================ 光源(start) ============================
 #pragma region
-    
     glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 #pragma endregion
     //============================ 光源(end) ============================    
@@ -153,7 +152,7 @@ int main()
         
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        //绘制矩形
+        //绘制cube
         shader.useShader();
         shader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
         shader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
@@ -166,7 +165,7 @@ int main()
         vertex.BindVertex();
         glDrawArrays(GL_TRIANGLES, 0, 36);
         
-        //绘制灯
+        //绘制light
         shaderLight.useShader();
         model = glm::mat4(1.0f);
         model = glm::translate(model, lightPos);
