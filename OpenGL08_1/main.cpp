@@ -44,7 +44,7 @@ void processInput(GLFWwindow* window)
         if (mixFactor <= 0.0)
             mixFactor = 0.0;
     }
-    
+
     CameraDir dir;
     if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
         dir = Forward;
@@ -103,15 +103,15 @@ int main()
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);//线框模式
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);//默认模式：填充颜色
 
-    
+
     // vertices和indices放在Model文件里了
     Vertex vertex(vertices, sizeof(vertices));
     vertex.SetLayout(
         {
             {"Position", 3},
         });
-    
-    
+
+
 #pragma endregion
     //============================ 顶点数据(end) ============================
 
@@ -135,7 +135,7 @@ int main()
 #pragma endregion
     //============================ 光源(end) ============================    
 
-    
+
     //============================ 渲染循环(start) ============================
 #pragma region
     while (!glfwWindowShouldClose(window))
@@ -149,7 +149,7 @@ int main()
 
         // 渲染指令-类似黑板的颜色
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         //绘制cube
@@ -164,7 +164,7 @@ int main()
         shader.setMat4("projection", projection);
         vertex.BindVertex();
         glDrawArrays(GL_TRIANGLES, 0, 36);
-        
+
         //绘制light
         shaderLight.useShader();
         model = glm::mat4(1.0f);
@@ -174,8 +174,8 @@ int main()
         shaderLight.setMat4("view", view);
         shaderLight.setMat4("projection", projection);
         vertex.BindVertex();
-        glDrawArrays(GL_TRIANGLES, 0, 36);        
-        
+        glDrawArrays(GL_TRIANGLES, 0, 36);
+
         //交换前后帧
         glfwSwapBuffers(window);
         glfwPollEvents();
