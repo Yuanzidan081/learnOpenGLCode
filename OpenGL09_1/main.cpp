@@ -23,10 +23,10 @@ float deltaTime = 0.0f; // 当前帧与上一帧的时间差
 float lastFrame = 0.0f; // 上一帧的时间
 
 // 全局只有一个相机
-Camera camera(glm::vec3(5.18843, 2.73538f, -3.09243f),
+Camera camera(glm::vec3(-3.7935f, 1.68357f, -2.39135f),
     glm::vec3(0.0f, 1.0f, 0.0f),
-    132.747,
-    -18.35f);
+    389.845f,
+    -11.85f);
 void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -128,9 +128,9 @@ int main()
 #pragma region
 
     // model空间下的cube的phong shader
-    Shader shader("assets/vertex_core.glsl", "assets/fragment_core.glsl");
+    //Shader shader("assets/vertex_core.glsl", "assets/fragment_core.glsl");
     // view空间下的cube的phong shader
-    //Shader shader("assets/vertex_core_view.glsl", "assets/fragment_core_view.glsl");
+    Shader shader("assets/vertex_core_view.glsl", "assets/fragment_core_view.glsl");
     // view空间下的cube的Gouraud shader
     //Shader shader("assets/vertex_core_view_Gouraud.glsl", "assets/fragment_core_view_Gouraud.glsl");
     Shader shaderLight("assets/vertex_light.glsl", "assets/fragment_light.glsl");
@@ -163,13 +163,13 @@ int main()
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        glm::vec3 lightPos(abs(xRadius * sin(0.1 * currentFrame)), 1.0f + abs(yRadius * sin(0.2 * currentFrame)), 1.8f);
+        glm::vec3 lightPos(abs(xRadius * sin(0.5 * currentFrame)), 1.0f + abs(yRadius * sin(1 * currentFrame)), 1.8f);
         //绘制cube
         shader.useShader();
         shader.setVec3("lightPos", lightPos);
         // 如果使用的view空间下的shader，把这句注释掉，
         // 如果使用的model空间下的shader，把这句取消注释
-        shader.setVec3("viewPos", camera.m_Pos);
+        //shader.setVec3("viewPos", camera.m_Pos);
         shader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
         shader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
         shader.setInt("specFactor", specFactor);
