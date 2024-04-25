@@ -14,4 +14,7 @@
 14. OpenGL08_1:   Color: basic light and object demo
 15. OpenGL09_1:   Basic Lighting: phong and gouraud lighting
 16. OpenGL10_1:   Material: material lighting
-17. 
+17. OpenGL11_1:   Lighting maps: simple demo
+18. OpenGL12_1:   Lighting casters: directional light
+19. OpenGL12_2:   Lighting casters: point light and attenuation
+20. OpenGL12_3:   Lighting casters: spotlight and smooth edges
