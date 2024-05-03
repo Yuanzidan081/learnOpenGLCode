@@ -10,7 +10,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <assimp/Importer.hpp>
-#include <assimp/scene.h>=
+#include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include "Camera.h"
 #include "Base.h"
@@ -25,28 +25,28 @@ const int screenHeight = 600;
 int specFactor = 32;
 bool firstMouse = true;
 float lastX = (float)screenWidth / 2, lastY = (float)screenHeight / 2;
-float deltaTime = 0.0f; // µ±Ç°Ö¡ÓëÉÏÒ»Ö¡µÄÊ±¼ä²î
-float lastFrame = 0.0f; // ÉÏÒ»Ö¡µÄÊ±¼ä
+float deltaTime = 0.0f; // å½“å‰å¸§ä¸ä¸Šä¸€å¸§çš„æ—¶é—´å·®
+float lastFrame = 0.0f; // ä¸Šä¸€å¸§çš„æ—¶é—´
 
-// Ò»¸öÎïÌåÒ»¸öÏà»ú
+// ä¸€ä¸ªç‰©ä½“ä¸€ä¸ªç›¸æœº
 //Camera camera(glm::vec3(4.71751f, 1.68357f, -2.38664f),
 //    glm::vec3(0.0f, 1.0f, 0.0f),
 //    496.494f,
 //    -14.05f);
-// 10¸öÎïÌåµÄÏà»úÉèÖÃ
+// 10ä¸ªç‰©ä½“çš„ç›¸æœºè®¾ç½®
 Camera camera(glm::vec3(5.74329f, 2.40024f, 3.36758f),
     glm::vec3(0.0f, 1.0f, 0.0f),
     587.843f,
     -15.5f);
 
-//EBO»æÖÆÊôĞÔ£¬ÔÚglDrawElementsµÄµÚ¶ş¸öºÍµÚËÄ¸ö²ÎÊı»áÓÃµ½
+//EBOç»˜åˆ¶å±æ€§ï¼Œåœ¨glDrawElementsçš„ç¬¬äºŒä¸ªå’Œç¬¬å››ä¸ªå‚æ•°ä¼šç”¨åˆ°
 struct IndicesElements
 {
-    unsigned int IndOffset;//¶¥µãÆ«ÒÆ
-    unsigned int IndNum;// ¶¥µãÊı
-    unsigned int materialId; // ²ÄÖÊµÄIDºÅ
+    unsigned int IndOffset;//é¡¶ç‚¹åç§»
+    unsigned int IndNum;// é¡¶ç‚¹æ•°
+    unsigned int materialId; // æè´¨çš„IDå·
 };
-vector<IndicesElements> indicesElement;//EBOÊôĞÔÊı×é
+vector<IndicesElements> indicesElement;//EBOå±æ€§æ•°ç»„
 
 
 struct Material
@@ -56,8 +56,8 @@ struct Material
     string norm;
 };
 
-vector<Material> materials; // ²ÄÖÊµÄÈİÆ÷
-vector<string> textures;//ÌùÍ¼µÄÂ·¾¶
+vector<Material> materials; // æè´¨çš„å®¹å™¨
+vector<string> textures;//è´´å›¾çš„è·¯å¾„
 void processInput(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -120,10 +120,10 @@ Mesh ImportModel(const std::string &path)
     vector<Vertex> modelVertices;
     vector<unsigned int> modelIndices;
     
-    // ´òÓ¡mesh
+    // æ‰“å°mesh
     int meshNum = scene->mNumMeshes;
     //print(meshNum << endl);
-    // ´òÓ¡meshµÄÃû×Ö
+    // æ‰“å°meshçš„åå­—
     int vID = 0;
     int indOffset = 0;
     for (int i = 0; i < meshNum; ++i)
@@ -141,7 +141,7 @@ Mesh ImportModel(const std::string &path)
             modelVertices.push_back(vTemp);
         }
         
-        print("¶¥µãË÷ÒıÊı: " << mesh->mNumFaces * 3<< endl);
+        print("é¡¶ç‚¹ç´¢å¼•æ•°: " << mesh->mNumFaces * 3<< endl);
         for (int j = 0; j < mesh->mNumFaces; ++j)
         {
             aiFace faces = mesh->mFaces[j];
@@ -153,9 +153,9 @@ Mesh ImportModel(const std::string &path)
             }
             //cout << ")" << endl;
         }
-        //print("¶¥µãIDÆ«ÒÆ:" << vID << endl);
-        //print("¶¥µãË÷ÒıÆ«ÒÆ:" << indOffset << endl);
-        //print("²ÄÖÊID: " << mesh->mMaterialIndex << endl);
+        //print("é¡¶ç‚¹IDåç§»:" << vID << endl);
+        //print("é¡¶ç‚¹ç´¢å¼•åç§»:" << indOffset << endl);
+        //print("æè´¨ID: " << mesh->mMaterialIndex << endl);
         //print("=======================" << endl);
         IndicesElements tempIE;
         tempIE.IndNum = mesh->mNumFaces * 3;
@@ -172,17 +172,17 @@ Mesh ImportModel(const std::string &path)
     //print(modelIndices.size() << endl);
     
     int numMaterials = scene->mNumMaterials;
-    //´òÓ¡²ÄÖÊµÄÊıÁ¿
+    //æ‰“å°æè´¨çš„æ•°é‡
     //print(numMaterials);
     vector<aiTextureType> textureType = { aiTextureType_DIFFUSE , aiTextureType_SPECULAR ,aiTextureType_HEIGHT };
     vector<string> textureStr = { "diffuse: ", "specular: ", "normal: " };
     string* p;
     for (int i = 0; i < numMaterials; ++i)
     {
-        print("µÚ" << i << "¸ö²ÄÁÏ" << endl);
+        print("ç¬¬" << i << "ä¸ªææ–™" << endl);
         aiMaterial* material = scene->mMaterials[i];
         aiString path;
-        //print(material->GetName().C_Str());//²ÄÖÊÃû×Ö
+        //print(material->GetName().C_Str());//æè´¨åå­—
         Material tempMat;
         p = &tempMat.diff;
         for (int k = 0; k < textureType.size(); ++k)
@@ -212,15 +212,15 @@ Mesh ImportModel(const std::string &path)
         
        
     }
-    // ÌùÍ¼È¥ÖØ¸´
+    // è´´å›¾å»é‡å¤
     vector<string>::iterator it;
     sort(textures.begin(), textures.end());
     it = unique(textures.begin(), textures.end());
     if (it != textures.end()) textures.erase(it, textures.end());
-    print("ÌùÍ¼µÄÊıÁ¿: " << textures.size() << endl);
+    print("è´´å›¾çš„æ•°é‡: " << textures.size() << endl);
     for (int i = 0; i < textures.size(); ++i)
     {
-        print("µÚ" << i << "ÕÅÌùÍ¼µÄÂ·¾¶" << textures[i] << endl);
+        print("ç¬¬" << i << "å¼ è´´å›¾çš„è·¯å¾„" << textures[i] << endl);
     }
     return Mesh(modelVertices, modelIndices);
 
@@ -264,10 +264,10 @@ void Draw(IndicesElements& IE, Shader& shader,
 int main()
 {
 
-    //============================ ³õÊ¼»¯(start) ============================
+    //============================ åˆå§‹åŒ–(start) ============================
 #pragma region
     GLFWwindow* window = GlInit(screenWidth, screenHeight, "LearnOpenGL");
-    glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {glViewport(0, 0, width, height); });//×ÔÊÊÓ¦´°¿Ú´óĞ¡
+    glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {glViewport(0, 0, width, height); });//è‡ªé€‚åº”çª—å£å¤§å°
     glfwSetCursorPosCallback(window, [](GLFWwindow* window, double xpos, double ypos)
         {
             if (firstMouse)
@@ -277,7 +277,7 @@ int main()
                 firstMouse = false;
             }
             float xoffset = xpos - lastX;
-            float yoffset = lastY - ypos; // glfwµÄxÖáÊÇÏòÓÒµÄ£¬yÖáÊÇÏòÏÂµÄ£¬Ô­µãÔÚ×óÉÏ½Ç
+            float yoffset = lastY - ypos; // glfwçš„xè½´æ˜¯å‘å³çš„ï¼Œyè½´æ˜¯å‘ä¸‹çš„ï¼ŒåŸç‚¹åœ¨å·¦ä¸Šè§’
             lastX = xpos;
             lastY = ypos;
 
@@ -291,12 +291,12 @@ int main()
         });
     glEnable(GL_DEPTH_TEST);
 #pragma endregion
-    //============================ ³õÊ¼»¯(end) ============================
+    //============================ åˆå§‹åŒ–(end) ============================
 
 
-    //============================ ¶¥µãÊı¾İ(start) ============================
+    //============================ é¡¶ç‚¹æ•°æ®(start) ============================
 #pragma region
-    // verticesºÍindices·ÅÔÚModelÎÄ¼şÀïÁË
+    // verticeså’Œindicesæ”¾åœ¨Modelæ–‡ä»¶é‡Œäº†
     Mesh mesh(vertices, sizeof(vertices));
     mesh.SetLayout(
         {
@@ -316,10 +316,10 @@ int main()
         {"Texture", 2}
         });
 #pragma endregion
-    //============================ ¶¥µãÊı¾İ(end) ============================
+    //============================ é¡¶ç‚¹æ•°æ®(end) ============================
 
 
-    //============================ ÎÆÀí(start) ============================
+    //============================ çº¹ç†(start) ============================
 #pragma region
     std::unordered_map<std::string, int> textureMap;
     Texture tex0("assets/container2.png", 0);
@@ -335,15 +335,15 @@ int main()
         textureMap.insert({ textures[j], i });
     }
 #pragma endregion
-    //============================ ÎÆÀí(end) ============================    
+    //============================ çº¹ç†(end) ============================    
 
 
     //============================ shader(start) ============================
 #pragma region
 
-    // model¿Õ¼äÏÂµÄcubeµÄphong shader£¬±¾´úÂëµÄÉèÖÃÖ»ÊÇÕë¶ÔÕâ¸öshader
+    // modelç©ºé—´ä¸‹çš„cubeçš„phong shaderï¼Œæœ¬ä»£ç çš„è®¾ç½®åªæ˜¯é’ˆå¯¹è¿™ä¸ªshader
     Shader shader("assets/vertex_multiLight.glsl", "assets/fragment_multiLight.glsl");
-    // view¿Õ¼äÏÂµÄcubeµÄphong shader£¬Õâ¸öshaderÃ»ÓĞĞŞ¸Ä
+    // viewç©ºé—´ä¸‹çš„cubeçš„phong shaderï¼Œè¿™ä¸ªshaderæ²¡æœ‰ä¿®æ”¹
     //Shader shader("assets/vertex_core_view.glsl", "assets/fragment_core_view.glsl");
     
     Shader shaderLight("assets/vertex_light.glsl", "assets/fragment_light.glsl");
@@ -353,26 +353,26 @@ int main()
     //============================ shader(end) ============================
 
     
-    //============================ äÖÈ¾Ñ­»·(start) ============================
+    //============================ æ¸²æŸ“å¾ªç¯(start) ============================
 #pragma region
     while (!glfwWindowShouldClose(window))
     {
-        //ÊäÈë
+        //è¾“å…¥
         float currentFrame = glfwGetTime();
         deltaTime = currentFrame - lastFrame;
         lastFrame = currentFrame;
 
         processInput(window);
         
-        // äÖÈ¾Ö¸Áî-ÀàËÆºÚ°åµÄÑÕÉ«
+        // æ¸²æŸ“æŒ‡ä»¤-ç±»ä¼¼é»‘æ¿çš„é¢œè‰²
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glm::mat4 model(1.0);
         glm::mat4 view = camera.GetCameraView();
         glm::mat4 projection = glm::perspective(glm::radians(camera.m_Fov), (float)screenWidth / (float)screenHeight, 0.1f, 100.0f);
-        //»æÖÆcube
+        //ç»˜åˆ¶cube
         setMultiLightShader(shader);
-        tex0.Activate(0);// ¼¤»îÎÆÀí×ø±ê
+        tex0.Activate(0);// æ¿€æ´»çº¹ç†åæ ‡
         tex1.Activate(1);
         //
         //
@@ -405,12 +405,12 @@ int main()
         //girl 
         //Draw(AssimpModel, AssimpModelShader, view, projection, glm::vec3(0.01,0.01,0.01));
         /*
-        * Ò²¿ÉÒÔ½øĞĞ·Ö¿ª»æÖÆ-nanosuit
+        * ä¹Ÿå¯ä»¥è¿›è¡Œåˆ†å¼€ç»˜åˆ¶-nanosuit
         for (int i = 0; i < indicesElement.size(); ++i)
             Draw(indicesElement[i], AssimpModelShader, view, projection);
         */
         /*
-        //ÍêÕûµÄ»æÖÆ-nanosuit£¬²»Ê¹ÓÃº¯Êı
+        //å®Œæ•´çš„ç»˜åˆ¶-nanosuitï¼Œä¸ä½¿ç”¨å‡½æ•°
         AssimpModelShader.setMat4("view", view);
         AssimpModelShader.setMat4("projection", projection);
         AssimpModel.BindVertex();
@@ -419,7 +419,7 @@ int main()
         AssimpModelShader.setMat4("model", model);
         glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(AssimpModel.GetIndicies().size()), GL_UNSIGNED_INT, 0);
 
-        // Öğ¸ömesh»æÖÆ-nanosuit£¬Ê¹ÓÃº¯Êı
+        // é€ä¸ªmeshç»˜åˆ¶-nanosuitï¼Œä½¿ç”¨å‡½æ•°
         //// visor
         //glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(156), GL_UNSIGNED_INT, 0);
         //// legs
@@ -458,7 +458,7 @@ int main()
         AssimpModel.UnBindVertex();
         //glDrawArrays(GL_TRIANGLES, 0, 36);
         
-        //»æÖÆlight
+        //ç»˜åˆ¶light
         shaderLight.useShader();
         model = glm::mat4(1.0);
         mesh.BindVertex();
@@ -475,12 +475,12 @@ int main()
         }
                
         
-        //½»»»Ç°ºóÖ¡
+        //äº¤æ¢å‰åå¸§
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 #pragma endregion
-    //============================ äÖÈ¾Ñ­»·(end) ============================
+    //============================ æ¸²æŸ“å¾ªç¯(end) ============================
     mesh.DeleteVertex();
     shader.deleteShaderPrograme();
     glfwTerminate();
