@@ -1,0 +1,44 @@
+# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
+# File Created: 25.12.2020 18:53:32
+
+newmtl M_Kirigiri_Face
+	Ns 33.2130
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.8000 0.8000 0.8000
+	Ks 0.0200 0.0200 0.0200
+	Ke 0.0000 0.0000 0.0000
+	map_Ka F:\clara\9\untitled-scene-fbx - 2020-11-18T204722.782\untitled-scene.fbm\08_Kirigiri_face_D.png
+	map_Kd F:\clara\9\untitled-scene-fbx - 2020-11-18T204722.782\untitled-scene.fbm\08_Kirigiri_face_D.png
+
+newmtl M_Kirigiri_cloth
+	Ns 33.2130
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.8000 0.8000 0.8000
+	Ks 0.0200 0.0200 0.0200
+	Ke 0.0000 0.0000 0.0000
+	map_Ka F:\clara\9\untitled-scene-fbx - 2020-11-18T204722.782\untitled-scene.fbm\08_Kirigiri_cloth_D.png
+	map_Kd F:\clara\9\untitled-scene-fbx - 2020-11-18T204722.782\untitled-scene.fbm\08_Kirigiri_cloth_D.png
+
+newmtl M_Kirigiri_Hair
+	Ns 33.2130
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000 
+	illum 2
+	Ka 0.0000 0.0000 0.0000
+	Kd 0.8000 0.8000 0.8000
+	Ks 0.0200 0.0200 0.0200
+	Ke 0.0000 0.0000 0.0000
+	map_Ka F:\clara\9\untitled-scene-fbx - 2020-11-18T204722.782\untitled-scene.fbm\08_Kirigiri_hair_D.png
+	map_Kd F:\clara\9\untitled-scene-fbx - 2020-11-18T204722.782\untitled-scene.fbm\08_Kirigiri_hair_D.png
