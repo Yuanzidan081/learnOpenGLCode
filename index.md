@@ -18,3 +18,8 @@
 18. OpenGL12_1:   Lighting casters: directional light
 19. OpenGL12_2:   Lighting casters: point light and attenuation
 20. OpenGL12_3:   Lighting casters: spotlight and smooth edges
+21. OpenGL13_1:   Multi-lights: simple demo
+22. OpenGL14_1:   Assimp Model Imported: complex obj
+23. OpenGL15_1:   Depth Test: : simple demo
+24. OpenGL16_1:   Stencil Test: : simple demo
+25. OpenGL17_1:   Blend: simple demo
