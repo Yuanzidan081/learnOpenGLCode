@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="glad.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertex.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assets\vertex_core.glsl" />
+    <None Include="assets\fragment_core.glsl" />
+    <None Include="assets\fragment_light.glsl" />
+    <None Include="assets\vertex_light.glsl" />
+    <None Include="assets\fragment_core_view.glsl" />
+    <None Include="assets\vertex_core_view.glsl" />
+    <None Include="assets\fragment_core_view_Gouraud.glsl" />
+    <None Include="assets\vertex_core_view_Gouraud.glsl" />
+    <None Include="assets\fragment_multiLight.glsl" />
+    <None Include="assets\vertex_multiLight.glsl" />
+    <None Include="assets\vertex_model.glsl" />
+    <None Include="assets\fragment_model.glsl" />
+    <None Include="assets\vertex_model_texture.glsl" />
+    <None Include="assets\fragment_model_texture.glsl" />
+    <None Include="assets\fragment_depth_test.glsl" />
+    <None Include="assets\vertex_depth_test.glsl" />
+    <None Include="assets\fragment_depth_linear_test.glsl" />
+    <None Include="assets\fragment_stencil_test.glsl" />
+    <None Include="assets\fragment_blend.glsl" />
+    <None Include="assets\vertex_blend.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Shader.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="stb_image.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GlInit.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Layout.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderSetting.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\container.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="assets\awesomeface.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="assets\container2.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="assets\container2_specular.png">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="assets\matrix.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="assets\texture1.jpg">
+      <Filter>资源文件</Filter>
+    </Image>
+    <Image Include="assets\blending_transparent_window.png">
+      <Filter>资源文件</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
