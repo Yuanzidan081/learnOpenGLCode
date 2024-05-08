@@ -144,6 +144,7 @@ int main()
     Texture tex0("assets/container2.png", 0);
     Texture tex1("assets/container2_specular.png", 1);
     Texture tex2("assets/texture1.jpg", 2);
+    Texture tex3("assets/blending_transparent_window.png", 3, false);
 #pragma endregion
     //============================ 纹理(end) ============================    
 
@@ -226,6 +227,33 @@ int main()
         glDrawArrays(GL_TRIANGLES, 0, 36);
         mesh.UnBindVertex();
 
+        // 绘制草/窗户
+
+        shaderBlend.useShader();
+        tex3.Activate(3);
+        grassMesh.BindVertex();
+        shaderBlend.setMat4("view", view);
+        shaderBlend.setMat4("projection", projection);
+        shaderBlend.setInt("texture1", 3);
+
+        // 绘制无排序的透明物体
+        /*for (unsigned int i = 0; i < windows.size(); i++)
+        {
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, windows[i] + glm::vec3(0.0f, 1.0f, 0.0f));
+            shaderBlend.setMat4("model", model);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+        }*/
+
+        // 绘制排序的透明物体
+        for (auto it = sorted.rbegin(); it != sorted.rend(); ++it)
+        {
+            model = glm::mat4(1.0f);
+            model = glm::translate(model, it->second + glm::vec3(0.0f, 1.0f, 0.0f));
+            shaderBlend.setMat4("model", model);
+            glDrawArrays(GL_TRIANGLES, 0, 6);
+        }
+        grassMesh.UnBindVertex();
         
         //绘制light
         shaderLight.useShader();
