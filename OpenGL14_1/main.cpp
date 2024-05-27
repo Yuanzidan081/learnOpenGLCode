@@ -179,7 +179,7 @@ Mesh ImportModel(const std::string &path)
     string* p;
     for (int i = 0; i < numMaterials; ++i)
     {
-        print("第" << i << "个材料" << endl);
+        //print("第" << i << "个材料" << endl);
         aiMaterial* material = scene->mMaterials[i];
         aiString path;
         //print(material->GetName().C_Str());//材质名字
@@ -217,11 +217,11 @@ Mesh ImportModel(const std::string &path)
     sort(textures.begin(), textures.end());
     it = unique(textures.begin(), textures.end());
     if (it != textures.end()) textures.erase(it, textures.end());
-    print("贴图的数量: " << textures.size() << endl);
-    for (int i = 0; i < textures.size(); ++i)
+    //print("贴图的数量: " << textures.size() << endl);
+    /*for (int i = 0; i < textures.size(); ++i)
     {
         print("第" << i << "张贴图的路径" << textures[i] << endl);
-    }
+    }*/
     return Mesh(modelVertices, modelIndices);
 
     
